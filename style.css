@@ -1240,6 +1240,66 @@ ul { list-style: none; }
   box-shadow: var(--shadow-md);
 }
 
+/* MAP & DIRECTIONS */
+.contact__map {
+  margin-top: 3rem;
+}
+.contact__map-header {
+  margin-bottom: 1.5rem;
+}
+.contact__map-info h3 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--brown);
+  margin-bottom: 0.3rem;
+}
+.contact__map-info p {
+  color: var(--charcoal);
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+.contact__map-badges {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.contact__parking-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--sage-light);
+  color: var(--sage);
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--r-full);
+  font-size: 0.9rem;
+}
+.btn--directions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: var(--terracotta);
+  color: var(--white);
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--r-full);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.btn--directions:hover {
+  background: var(--brown);
+}
+.contact__map-embed {
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.contact__map-embed iframe {
+  display: block;
+}
+
 /* FOOTER */
 .footer {
   background: var(--charcoal);
