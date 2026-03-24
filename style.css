@@ -957,6 +957,77 @@ ul { list-style: none; }
   min-width: 160px;
 }
 
+/* BREED REVEAL */
+.breed-reveal {
+  padding: var(--section-pad) 0;
+}
+.breed-reveal__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.breed-reveal__sub {
+  color: var(--brown-light);
+  font-size: 1.05rem;
+}
+.breed-reveal__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.breed-card {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.breed-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+.breed-card__img {
+  background: linear-gradient(135deg, var(--peach) 0%, var(--sage) 100%);
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+}
+.breed-card__info {
+  padding: 1.25rem 1.5rem;
+}
+.breed-card__info h4 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--brown);
+  margin-bottom: 0.2rem;
+}
+.breed-card__info p {
+  font-size: 0.85rem;
+  color: var(--brown-light);
+  margin-bottom: 0.6rem;
+}
+.breed-card__tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--sage-deep);
+  background: rgba(168, 197, 160, 0.15);
+  padding: 0.3em 0.8em;
+  border-radius: 100px;
+}
+.breed-reveal__note {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: var(--brown-light);
+  font-style: italic;
+}
+
 /* FAQ */
 .faq {
   padding: var(--section-pad) 0;

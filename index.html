@@ -23,6 +23,7 @@
       <ul class="nav__links" id="navLinks">
         <li><a href="#about">About</a></li>
         <li><a href="#classes">Classes</a></li>
+        <li><a href="#breeds">Breed Reveal</a></li>
         <li><a href="#faq">FAQs</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="#classes" class="btn btn--nav">Book Now</a></li>
@@ -341,6 +342,87 @@
           <button class="btn btn--primary" onclick="closeWaiverModal('lateModal')">Got It</button>
         </div>
       </div>
+
+      <!-- Privacy Policy Modal -->
+      <div class="modal policy-modal" id="privacyModal" style="display:none;">
+        <div class="modal__overlay" onclick="closeWaiverModal('privacyModal')"></div>
+        <div class="modal__content modal__content--policy">
+          <button class="policy-modal__close" onclick="closeWaiverModal('privacyModal')">&times;</button>
+          <h3>Privacy Policy</h3>
+          <div class="policy-modal__body">
+            <p><strong>Overview</strong><br>
+            This Privacy Policy governs data collection at puppyflowyoga.com. By using and accessing any of our services, you agree to the collection, use, and disclosure of your information as described here.</p>
+
+            <p><strong>Information We Collect</strong><br>
+            We collect information you provide directly, including: contact details (name, phone, email), booking and payment information, and customer support communications. We also automatically collect usage data through cookies, including device info, IP address, and browsing behavior.</p>
+
+            <p><strong>How We Use Your Information</strong><br>
+            We use your information to: fulfill bookings and provide services, send booking confirmations and class reminders, send marketing communications (with your consent), detect and prevent fraudulent activity, and improve your experience on our site.</p>
+
+            <p><strong>Data Sharing</strong><br>
+            We may share your personal information with: service vendors and payment processors (e.g., Stripe), marketing partners (with your consent), and legal authorities when required by law. We do not sell your personal data.</p>
+
+            <p><strong>Cookies</strong><br>
+            Our site uses cookies and similar tracking technologies to improve your browsing experience and analyze site traffic. You can control cookie settings through your browser preferences.</p>
+
+            <p><strong>Your Rights</strong><br>
+            Depending on your location, you may request to: access personal information we hold about you, delete your personal information, correct inaccurate data, receive your data in a portable format, and withdraw consent for marketing communications.</p>
+
+            <p><strong>Data Security</strong><br>
+            We implement appropriate security measures to protect your personal information. Payment processing is handled by PCI-compliant third-party processors — we never store your full credit card details.</p>
+
+            <p><strong>Contact</strong><br>
+            For privacy-related questions, contact us at hello@puppyflowyoga.com.</p>
+
+            <p><em>Last updated: March 2026</em></p>
+          </div>
+          <button class="btn btn--primary" onclick="closeWaiverModal('privacyModal')">Close</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BREED REVEAL -->
+  <section class="breed-reveal" id="breeds">
+    <div class="container">
+      <div class="breed-reveal__header" data-anim="fade-up">
+        <span class="section-tag">Breed Reveal</span>
+        <h2 class="section-title">Meet this week's <em>puppies!</em></h2>
+        <p class="breed-reveal__sub">Every week brings a new group of adorable pups. Here's who you'll be snuggling with this weekend!</p>
+      </div>
+      <div class="breed-reveal__grid" data-anim="fade-up">
+        <div class="breed-card">
+          <div class="breed-card__img">
+            <span>🐕</span>
+          </div>
+          <div class="breed-card__info">
+            <h4>Golden Retrievers</h4>
+            <p>8 weeks old</p>
+            <span class="breed-card__tag">This Weekend</span>
+          </div>
+        </div>
+        <div class="breed-card">
+          <div class="breed-card__img">
+            <span>🐩</span>
+          </div>
+          <div class="breed-card__info">
+            <h4>Mini Goldendoodles</h4>
+            <p>10 weeks old</p>
+            <span class="breed-card__tag">This Weekend</span>
+          </div>
+        </div>
+        <div class="breed-card">
+          <div class="breed-card__img">
+            <span>🐶</span>
+          </div>
+          <div class="breed-card__info">
+            <h4>French Bulldogs</h4>
+            <p>9 weeks old</p>
+            <span class="breed-card__tag">Coming Soon</span>
+          </div>
+        </div>
+      </div>
+      <p class="breed-reveal__note" data-anim="fade-up">Breeds are subject to change. Follow us on Instagram for the latest puppy updates!</p>
     </div>
   </section>
 
@@ -446,8 +528,10 @@
           <a href="#classes">Book a Class</a>
           <a href="#faq">FAQs</a>
           <a href="#contact">Contact</a>
+          <a href="#breeds">Breed Reveal</a>
           <a href="#" onclick="openPolicyModal('refundModal');return false;">Refund Policy</a>
           <a href="#" onclick="openPolicyModal('lateModal');return false;">Late/No-Show Policy</a>
+          <a href="#" onclick="openPolicyModal('privacyModal');return false;">Privacy Policy</a>
         </div>
         <div class="footer__social">
           <a href="#" aria-label="Instagram">IG</a>
