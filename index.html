@@ -165,8 +165,41 @@
         <p class="classes__sub">Select a date to see available time slots. Spots fill up fast!</p>
       </div>
 
-      <!-- Calendar -->
-      <div class="calendar" data-anim="fade-up">
+      <!-- Compact Booking Widget -->
+      <div class="booking-widget" data-anim="fade-up">
+        <!-- Date Selector -->
+        <div class="booking-widget__date">
+          <select class="booking-widget__select" id="classDateSelect"></select>
+        </div>
+
+        <!-- Time Slots (horizontal) -->
+        <div class="booking-widget__times" id="timeSlotsRow"></div>
+
+        <!-- Quantity + Book -->
+        <div class="booking-widget__actions">
+          <div class="booking-widget__qty">
+            <button type="button" class="quantity-btn" id="qtyMinusWidget" aria-label="Decrease">-</button>
+            <span class="quantity-value" id="qtyValueWidget">1</span>
+            <button type="button" class="quantity-btn" id="qtyPlusWidget" aria-label="Increase">+</button>
+          </div>
+          <button type="button" class="btn btn--primary booking-widget__book" id="addToBookBtn">Book Now &mdash; <span id="widgetTotal">$41.25</span></button>
+        </div>
+
+        <!-- What's Included -->
+        <div class="booking-widget__includes">
+          <h3>Wellness Puppy Yoga</h3>
+          <p class="booking-widget__subtitle">Each Ticket Includes | 75 Minute Puppy Experience</p>
+          <ul class="booking-widget__list">
+            <li>45-Minute Puppy Yoga Session</li>
+            <li>30-Minute Puppy Chill Time</li>
+            <li>Yoga Mat for the Session</li>
+            <li>Unforgettable Puppy Cuddles</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hidden calendar for reference -->
+      <div class="calendar" data-anim="fade-up" style="display:none;">
         <div class="calendar__nav">
           <button class="calendar__arrow" id="calPrev" aria-label="Previous month">&larr;</button>
           <h3 class="calendar__month" id="calMonth"></h3>
@@ -178,7 +211,7 @@
         <div class="calendar__grid" id="calGrid"></div>
       </div>
 
-      <!-- Time Slots -->
+      <!-- Time Slots (hidden, kept for compatibility) -->
       <div class="slots" id="slots" style="display:none;">
         <h3 class="slots__title" id="slotsTitle"></h3>
         <div class="slots__grid" id="slotsGrid"></div>

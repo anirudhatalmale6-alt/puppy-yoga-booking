@@ -478,3 +478,126 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     }
   });
 });
+
+// ---- COMPACT BOOKING WIDGET ----
+(function() {
+  const dateSelect = document.getElementById('classDateSelect');
+  const timeSlotsRow = document.getElementById('timeSlotsRow');
+  const qtyValueWidget = document.getElementById('qtyValueWidget');
+  const qtyMinusWidget = document.getElementById('qtyMinusWidget');
+  const qtyPlusWidget = document.getElementById('qtyPlusWidget');
+  const widgetTotal = document.getElementById('widgetTotal');
+  const addToBookBtn = document.getElementById('addToBookBtn');
+
+  if (!dateSelect) return;
+
+  let widgetQty = 1;
+  let widgetSelectedTime = null;
+  let widgetSpotsLeft = CLASS_CAPACITY;
+
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const fullDayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  // Generate next 8 available class dates
+  function getUpcomingClassDates(count) {
+    const dates = [];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    let d = new Date(today);
+
+    while (dates.length < count) {
+      if (CLASS_DAYS.includes(d.getDay()) && d >= today) {
+        dates.push(new Date(d));
+      }
+      d.setDate(d.getDate() + 1);
+    }
+    return dates;
+  }
+
+  const classDates = getUpcomingClassDates(8);
+
+  // Populate date dropdown
+  classDates.forEach((date, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = `${fullDayNames[date.getDay()]}, ${monthNames[date.getMonth()]} ${date.getDate()} | 75 min`;
+    dateSelect.appendChild(opt);
+  });
+
+  // Render time pills
+  function renderTimePills() {
+    timeSlotsRow.innerHTML = '';
+    widgetSelectedTime = null;
+
+    CLASS_TIMES.forEach((time, idx) => {
+      const spotsTaken = getRandomSpotsTaken();
+      const spotsLeft = CLASS_CAPACITY - spotsTaken;
+      const isFull = spotsLeft <= 0;
+
+      const pill = document.createElement('button');
+      pill.type = 'button';
+      pill.className = 'time-pill' + (isFull ? ' full' : '');
+      pill.textContent = time;
+
+      if (!isFull) {
+        pill.addEventListener('click', () => {
+          document.querySelectorAll('.time-pill').forEach(p => p.classList.remove('selected'));
+          pill.classList.add('selected');
+          widgetSelectedTime = time;
+          widgetSpotsLeft = spotsLeft;
+          widgetQty = 1;
+          updateWidgetUI();
+        });
+
+        // Auto-select first available time
+        if (!widgetSelectedTime) {
+          pill.classList.add('selected');
+          widgetSelectedTime = time;
+          widgetSpotsLeft = spotsLeft;
+        }
+      }
+
+      timeSlotsRow.appendChild(pill);
+    });
+
+    updateWidgetUI();
+  }
+
+  function updateWidgetUI() {
+    qtyValueWidget.textContent = widgetQty;
+    const total = (CLASS_PRICE * widgetQty).toFixed(2);
+    widgetTotal.textContent = '$' + total;
+    qtyMinusWidget.disabled = widgetQty <= 1;
+    qtyPlusWidget.disabled = widgetQty >= widgetSpotsLeft;
+  }
+
+  qtyMinusWidget.addEventListener('click', () => {
+    if (widgetQty > 1) { widgetQty--; updateWidgetUI(); }
+  });
+
+  qtyPlusWidget.addEventListener('click', () => {
+    if (widgetQty < widgetSpotsLeft) { widgetQty++; updateWidgetUI(); }
+  });
+
+  dateSelect.addEventListener('change', () => {
+    renderTimePills();
+  });
+
+  // "Book Now" button -> show the full booking form
+  addToBookBtn.addEventListener('click', () => {
+    if (!widgetSelectedTime) return;
+
+    const dateIdx = dateSelect.value;
+    const date = classDates[dateIdx];
+    selectedDate = date;
+    selectedSlot = { time: widgetSelectedTime, spotsLeft: widgetSpotsLeft };
+    quantity = widgetQty;
+
+    showBookingForm();
+    updateQuantityUI();
+  });
+
+  // Initial render
+  renderTimePills();
+})();
