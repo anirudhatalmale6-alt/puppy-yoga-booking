@@ -346,6 +346,11 @@ document.querySelector('.contact__form')?.addEventListener('submit', function(e)
 });
 
 // ---- POLICY MODALS ----
+function toggleAllFaqs() {
+  const faqList = document.querySelector('.faq__list');
+  faqList.classList.add('faq--expanded');
+}
+
 function openPolicyModal(id) {
   document.getElementById(id).style.display = 'flex';
 }
