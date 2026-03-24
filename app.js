@@ -351,6 +351,44 @@ document.querySelector('.contact__form')?.addEventListener('submit', function(e)
 });
 
 // ---- POLICY MODALS ----
+// ---- QUICK BOOK (floating button) ----
+function quickBook() {
+  // Find next available class day
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  let nextClassDate = new Date(today);
+
+  for (let i = 0; i < 14; i++) {
+    if (CLASS_DAYS.includes(nextClassDate.getDay()) && nextClassDate >= today) {
+      break;
+    }
+    nextClassDate.setDate(nextClassDate.getDate() + 1);
+  }
+
+  // Set the calendar to the right month
+  currentMonth = nextClassDate.getMonth();
+  currentYear = nextClassDate.getFullYear();
+  selectedDate = nextClassDate;
+  renderCalendar();
+
+  // Highlight the selected date on calendar
+  document.querySelectorAll('.cal-day').forEach(d => {
+    if (d.textContent == nextClassDate.getDate() && d.classList.contains('has-class')) {
+      d.classList.add('selected');
+    }
+  });
+
+  // Render time slots and auto-select the first available one
+  renderSlots();
+
+  setTimeout(() => {
+    const firstSlot = document.querySelector('.slot-card:not(.full)');
+    if (firstSlot) {
+      firstSlot.click();
+    }
+  }, 100);
+}
+
 function toggleAllFaqs() {
   const faqList = document.querySelector('.faq__list');
   faqList.classList.add('faq--expanded');
