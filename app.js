@@ -28,8 +28,13 @@ const nav = document.getElementById('nav');
 const navToggle = document.getElementById('navToggle');
 const navLinks = document.getElementById('navLinks');
 
+const floatingCta = document.getElementById('floatingCta');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 50);
+  // Show floating Book Now after scrolling 400px
+  if (floatingCta) {
+    floatingCta.classList.toggle('visible', window.scrollY > 400);
+  }
 });
 
 navToggle.addEventListener('click', () => {
