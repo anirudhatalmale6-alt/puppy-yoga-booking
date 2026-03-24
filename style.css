@@ -741,17 +741,69 @@ ul { list-style: none; }
   font-weight: 700;
 }
 
-/* Card Input */
-.card-input { margin-bottom: 1.5rem; }
-.card-input > label {
-  display: block;
+/* Payment Options */
+.payment-options { margin-top: 0.5rem; }
+
+.btn-apple-pay {
+  width: 100%;
+  padding: 1em;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.05rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: background 0.2s;
+  height: 52px;
+}
+.btn-apple-pay:hover { background: #1a1a1a; }
+.btn-apple-pay:active { background: #333; }
+.apple-pay-label {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #fff;
+}
+.apple-pay-logo {
+  height: 22px;
+  width: auto;
+}
+
+.payment-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.payment-divider::before,
+.payment-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--cream-dark);
+}
+.payment-divider span {
   font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--brown);
-  margin-bottom: 0.4rem;
+  color: var(--brown-light);
+  white-space: nowrap;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  font-weight: 500;
 }
+
+.payment-note {
+  font-size: 0.75rem;
+  color: var(--sage-deep);
+  margin-top: 0.75rem;
+  font-style: italic;
+  text-align: center;
+}
+
+/* Card Input */
+.card-input { margin-bottom: 1.25rem; }
 .card-input__box {
   border: 1.5px solid var(--cream-dark);
   border-radius: var(--r-sm);
@@ -791,13 +843,6 @@ ul { list-style: none; }
   border-radius: 4px;
   letter-spacing: 0.05em;
 }
-.card-input__note {
-  font-size: 0.75rem;
-  color: var(--sage-deep);
-  margin-top: 0.5rem;
-  font-style: italic;
-}
-
 /* Modal */
 .modal {
   position: fixed;

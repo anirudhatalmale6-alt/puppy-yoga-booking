@@ -217,10 +217,32 @@ function showBookingForm() {
   form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// ---- CHECKOUT ----
+// ---- APPLE PAY BUTTON ----
+document.getElementById('applePayBtn')?.addEventListener('click', function() {
+  // Validate required fields first
+  const fname = document.getElementById('fname').value;
+  const email = document.getElementById('email').value;
+  const phone = document.getElementById('phone').value;
+  const waiver = document.getElementById('waiver').checked;
+
+  if (!fname || !email || !phone || !waiver) {
+    alert('Please fill in all required fields and accept the waiver before paying.');
+    return;
+  }
+
+  // In production, this triggers the Apple Pay payment sheet via Stripe
+  // For demo, show success
+  showSuccessModal();
+});
+
+// ---- CHECKOUT (Card Payment) ----
 document.getElementById('checkoutForm').addEventListener('submit', function(e) {
   e.preventDefault();
 
+  showSuccessModal();
+});
+
+function showSuccessModal() {
   const fname = document.getElementById('fname').value;
   const email = document.getElementById('email').value;
 
@@ -241,7 +263,7 @@ document.getElementById('checkoutForm').addEventListener('submit', function(e) {
   `;
 
   modal.style.display = 'flex';
-});
+}
 
 function closeModal() {
   document.getElementById('successModal').style.display = 'none';

@@ -209,28 +209,43 @@
               <span>I accept the <a href="#" class="link">liability waiver</a> and understand that I participate at my own risk. *</span>
             </label>
 
-            <!-- Simulated Card Input -->
-            <div class="card-input">
-              <label>Card Details</label>
-              <div class="card-input__box">
-                <div class="card-input__row">
-                  <input type="text" placeholder="4242 4242 4242 4242" class="card-input__number" maxlength="19">
-                  <input type="text" placeholder="MM/YY" class="card-input__exp" maxlength="5">
-                  <input type="text" placeholder="CVC" class="card-input__cvc" maxlength="4">
-                </div>
-                <div class="card-input__icons">
-                  <span class="card-icon">VISA</span>
-                  <span class="card-icon">MC</span>
-                  <span class="card-icon">AMEX</span>
+            <!-- Payment Options -->
+            <div class="payment-options">
+              <!-- Apple Pay - Primary -->
+              <button type="button" class="btn-apple-pay" id="applePayBtn">
+                <span class="apple-pay-label">Buy with</span>
+                <svg class="apple-pay-logo" viewBox="0 0 165 40" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M30.166 4.76c-1.973 2.332-5.16 4.143-8.283 3.886-.395-3.176 1.155-6.481 2.934-8.553C26.79-2.24 30.295-3.917 33.03-4.08c.327 3.305-1.072 6.546-2.864 8.84M33.004 5.57c-4.637-.266-8.584 2.634-10.79 2.634-2.205 0-5.55-2.503-9.17-2.438-4.72.068-9.106 2.764-11.506 6.938-4.94 8.48-1.29 21.046 3.477 27.984 2.383 3.403 5.16 7.213 8.845 7.083 3.555-.133 4.896-2.307 9.17-2.307 4.276 0 5.486 2.307 9.238 2.24 3.814-.066 6.2-3.47 8.584-6.873 2.644-3.916 3.747-7.736 3.813-7.933-.067-.066-7.435-2.9-7.502-11.354-.065-7.083 5.746-10.488 6.072-10.686-3.358-4.958-8.52-5.487-10.231-5.288M62.832 2.252c10.166 0 17.264 7.015 17.264 17.222 0 10.248-7.221 17.263-17.509 17.263H50.576v17.88H43.273V2.252h19.56zm-12.256 28.01h8.12c7.098 0 11.16-3.855 11.16-10.747 0-6.893-4.062-10.706-11.118-10.706h-8.162v21.454zM82.55 42.065c0-6.688 5.117-10.83 14.218-11.36l10.453-.614V27.17c0-4.263-2.865-6.81-7.67-6.81-4.55 0-7.375 2.18-8.04 5.527H84.84c.37-7.178 6.442-12.543 15.093-12.543 8.855 0 14.587 4.713 14.587 12.01v25.264h-6.852v-6.033h-.164c-2.007 4.058-6.442 6.647-11.033 6.647-6.852 0-11.64-4.303-11.64-10.542l-.002-.002v-.625zm24.67-3.649v-3.036l-9.397.573c-5.363.327-8.407 2.508-8.407 6.033 0 3.608 3.168 5.976 7.997 5.976 6.28 0 11.807-4.345 11.807-9.546zM119.146 69.76V63.85c.495.124 1.606.124 2.14.124 3.044 0 4.694-1.282 5.73-4.55l.618-1.98-13.106-43.74h7.548l9.398 36.234h.163l9.397-36.234h7.343L135.024 59.44c-2.954 8.355-6.361 11.077-13.51 11.077-.535 0-1.872-.082-2.369-.164V69.76z" fill="white" transform="translate(0,10) scale(0.85)"/>
+                </svg>
+              </button>
+
+              <div class="payment-divider">
+                <span>or pay with card</span>
+              </div>
+
+              <!-- Card Payment -->
+              <div class="card-input" id="cardSection">
+                <div class="card-input__box">
+                  <div class="card-input__row">
+                    <input type="text" placeholder="4242 4242 4242 4242" class="card-input__number" maxlength="19">
+                    <input type="text" placeholder="MM/YY" class="card-input__exp" maxlength="5">
+                    <input type="text" placeholder="CVC" class="card-input__cvc" maxlength="4">
+                  </div>
+                  <div class="card-input__icons">
+                    <span class="card-icon">VISA</span>
+                    <span class="card-icon">MC</span>
+                    <span class="card-icon">AMEX</span>
+                  </div>
                 </div>
               </div>
-              <p class="card-input__note">Demo only — real Stripe integration will be connected</p>
-            </div>
 
-            <button type="submit" class="btn btn--primary btn--full">
-              <span class="btn__text">Pay & Confirm Booking</span>
-              <span class="btn__price" id="btnPrice">$35</span>
-            </button>
+              <button type="submit" class="btn btn--primary btn--full">
+                <span class="btn__text">Pay & Confirm Booking</span>
+                <span class="btn__price" id="btnPrice">$35</span>
+              </button>
+
+              <p class="payment-note">Demo only — real payment integration will be connected</p>
+            </div>
           </form>
         </div>
       </div>
