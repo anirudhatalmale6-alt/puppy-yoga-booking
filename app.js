@@ -521,7 +521,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   classDates.forEach((date, i) => {
     const opt = document.createElement('option');
     opt.value = i;
-    opt.textContent = `${fullDayNames[date.getDay()]}, ${monthNames[date.getMonth()]} ${date.getDate()} | 75 min`;
+    opt.textContent = `${fullDayNames[date.getDay()]}, ${monthNames[date.getMonth()]} ${date.getDate()} | 60 min`;
     dateSelect.appendChild(opt);
   });
 
