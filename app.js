@@ -264,6 +264,52 @@ document.querySelector('.contact__form')?.addEventListener('submit', function(e)
   this.reset();
 });
 
+// ---- EMAIL CAPTURE POPUP ----
+const emailPopup = document.getElementById('emailPopup');
+const emailPopupClose = document.getElementById('emailPopupClose');
+const emailPopupForm = document.getElementById('emailPopupForm');
+const emailPopupSuccess = document.getElementById('emailPopupSuccess');
+
+function showEmailPopup() {
+  // Don't show if already dismissed or subscribed
+  if (localStorage.getItem('puppyYogaEmailDismissed')) return;
+  emailPopup.style.display = 'flex';
+}
+
+function hideEmailPopup() {
+  emailPopup.style.display = 'none';
+  localStorage.setItem('puppyYogaEmailDismissed', '1');
+}
+
+// Show popup after 8 seconds on page
+setTimeout(showEmailPopup, 8000);
+
+// Also show on scroll past 40% of page (whichever comes first)
+let popupScrollTriggered = false;
+window.addEventListener('scroll', function onScrollPopup() {
+  if (popupScrollTriggered) return;
+  const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  if (scrollPercent > 0.4) {
+    popupScrollTriggered = true;
+    showEmailPopup();
+  }
+});
+
+emailPopupClose.addEventListener('click', hideEmailPopup);
+emailPopup.querySelector('.email-popup__overlay').addEventListener('click', hideEmailPopup);
+
+emailPopupForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = document.getElementById('popupEmail').value;
+  // In production, this would POST to your backend/email service
+  console.log('Email captured:', email);
+  emailPopupForm.style.display = 'none';
+  document.querySelector('.email-popup__text').style.display = 'none';
+  emailPopupSuccess.style.display = 'block';
+  // Auto-close after 2.5 seconds
+  setTimeout(hideEmailPopup, 2500);
+});
+
 // ---- SMOOTH SCROLL for nav links ----
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function(e) {

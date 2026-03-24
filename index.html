@@ -364,6 +364,28 @@
     </div>
   </footer>
 
+  <!-- EMAIL CAPTURE POPUP -->
+  <div class="email-popup" id="emailPopup" style="display:none;">
+    <div class="email-popup__overlay"></div>
+    <div class="email-popup__card">
+      <button class="email-popup__close" id="emailPopupClose" aria-label="Close">&times;</button>
+      <div class="email-popup__icon">🐾</div>
+      <h3 class="email-popup__title">Don't miss a <em>paw-some</em> class!</h3>
+      <p class="email-popup__text">Join our mailing list for exclusive early access to new sessions, puppy updates, and special offers.</p>
+      <form class="email-popup__form" id="emailPopupForm">
+        <div class="email-popup__input-wrap">
+          <input type="email" id="popupEmail" placeholder="Your email address" required>
+          <button type="submit" class="btn btn--primary">Subscribe</button>
+        </div>
+        <p class="email-popup__note">No spam, ever. Unsubscribe anytime.</p>
+      </form>
+      <div class="email-popup__success" id="emailPopupSuccess" style="display:none;">
+        <div class="email-popup__success-icon">🎉</div>
+        <p>You're on the list! Watch your inbox for puppy updates.</p>
+      </div>
+    </div>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>
