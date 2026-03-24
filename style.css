@@ -1227,8 +1227,20 @@ ul { list-style: none; }
 }
 .email-popup__icon {
   font-size: 2.5rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   animation: pawBounce 1s var(--ease) infinite;
+}
+.email-popup__coupon-badge {
+  display: inline-block;
+  background: var(--terracotta);
+  color: var(--white);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.3em 1em;
+  border-radius: 100px;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.05em;
 }
 @keyframes pawBounce {
   0%, 100% { transform: translateY(0) rotate(0deg); }
