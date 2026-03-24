@@ -206,7 +206,7 @@
             <label class="checkbox">
               <input type="checkbox" id="waiver" required>
               <span class="checkbox__mark"></span>
-              <span>I accept the <a href="#" class="link">liability waiver</a> and understand that I participate at my own risk. *</span>
+              <span>I accept the <a href="#" class="link" id="openWaiverLink">liability waiver</a>, <a href="#" class="link" id="openRefundLink">refund policy</a> &amp; <a href="#" class="link" id="openLateLink">late/no-show policy</a>, and understand that I participate at my own risk. *</span>
             </label>
 
             <!-- Payment Options -->
@@ -261,6 +261,86 @@
           <button class="btn btn--primary" onclick="closeModal()">Back to Classes</button>
         </div>
       </div>
+      <!-- Waiver Modal -->
+      <div class="modal policy-modal" id="waiverModal" style="display:none;">
+        <div class="modal__overlay" onclick="closeWaiverModal('waiverModal')"></div>
+        <div class="modal__content modal__content--policy">
+          <button class="policy-modal__close" onclick="closeWaiverModal('waiverModal')">&times;</button>
+          <h3>Liability Waiver &amp; Photo/Video Release</h3>
+          <div class="policy-modal__body">
+            <p><strong>Puppy Flow Yoga — Liability Waiver</strong></p>
+
+            <p><strong>1. Assumption of Risk &amp; Indemnification</strong><br>
+            By participating in any Puppy Flow Yoga event, I acknowledge the inherent risks involved, particularly from live animals (dogs) being on-site. I agree to waive and release any and all claims against Puppy Flow Yoga, its facilities, employees, and affiliates from any liability arising from my participation.</p>
+
+            <p><strong>2. Safety Risks with Live Animals</strong><br>
+            I understand that puppy yoga involves safety risks, as live animals (dogs) are on-site. Participants may experience injury including scratching and biting, even with trained and supervised animals. I accept full responsibility for any injuries sustained during the event.</p>
+
+            <p><strong>3. Photo/Video Release</strong><br>
+            I consent to the use of photographs and videos taken during the event for promotional purposes. All images are owned by Puppy Flow Yoga and may be used on social media, websites, and marketing materials.</p>
+
+            <p><strong>4. Personal Belongings</strong><br>
+            Puppy Flow Yoga assumes no responsibility for lost, damaged, or stolen personal property, including clothing, bags, jewelry, and electronics — whether damaged by animals or otherwise.</p>
+
+            <p><strong>5. Age Requirement</strong><br>
+            All participants must be 18 years or older, or have parental/guardian consent for minors under 18.</p>
+
+            <p><em>By checking the waiver box during booking, you agree to all terms above.</em></p>
+
+            <p style="margin-top:1rem;"><a href="https://waiver.smartwaiver.com/w/bo9pypwhvqcjwn87zolawz/web/" target="_blank" class="link">View full SmartWaiver form &rarr;</a></p>
+          </div>
+          <button class="btn btn--primary" onclick="closeWaiverModal('waiverModal')">I Understand</button>
+        </div>
+      </div>
+
+      <!-- Refund Policy Modal -->
+      <div class="modal policy-modal" id="refundModal" style="display:none;">
+        <div class="modal__overlay" onclick="closeWaiverModal('refundModal')"></div>
+        <div class="modal__content modal__content--policy">
+          <button class="policy-modal__close" onclick="closeWaiverModal('refundModal')">&times;</button>
+          <h3>Refund Policy</h3>
+          <div class="policy-modal__body">
+            <p><strong>No Refunds</strong><br>
+            All class bookings are final. We do not accept refunds for class bookings.</p>
+
+            <p><strong>Rescheduling</strong><br>
+            Instead of a refund, you may reschedule your ticket to a different date or time. A $7 CAD reschedule fee per ticket applies. This fee is waived if Puppy Flow Yoga initiates the reschedule.</p>
+
+            <p><strong>Store Credit</strong><br>
+            If you are unable to attend your scheduled class, you may receive store credit for the purchase amount, which can be applied toward a future session.</p>
+
+            <p><strong>Ticket Transfers</strong><br>
+            You may transfer your ticket to another guest at no cost by updating the name through your confirmation email.</p>
+
+            <p><strong>Price Match Protection</strong><br>
+            If a rescheduled session has a lower price, you will receive store credit for the difference. Claims must be submitted within 7 days of the rescheduled session.</p>
+          </div>
+          <button class="btn btn--primary" onclick="closeWaiverModal('refundModal')">Got It</button>
+        </div>
+      </div>
+
+      <!-- Late/No-Show Policy Modal -->
+      <div class="modal policy-modal" id="lateModal" style="display:none;">
+        <div class="modal__overlay" onclick="closeWaiverModal('lateModal')"></div>
+        <div class="modal__content modal__content--policy">
+          <button class="policy-modal__close" onclick="closeWaiverModal('lateModal')">&times;</button>
+          <h3>Late Arrival &amp; No-Show Policy</h3>
+          <div class="policy-modal__body">
+            <p><strong>Please Arrive Early</strong><br>
+            We recommend arriving 10 minutes before your scheduled class to allow time for parking, check-in, and settling in.</p>
+
+            <p><strong>10-Minute Grace Period</strong><br>
+            Attendees may enter up to 10 minutes after the class start time. Entry is not permitted beyond the 10-minute window for the safety and comfort of all participants and puppies.</p>
+
+            <p><strong>No-Show Policy</strong><br>
+            Arriving after the grace period results in a no-show status with no refunds or reschedules. Late arrivals are disruptive to the class flow and puppy behavior.</p>
+
+            <p><strong>Emergencies</strong><br>
+            If you have an emergency, please contact us as soon as possible before your scheduled class and we will do our best to accommodate you.</p>
+          </div>
+          <button class="btn btn--primary" onclick="closeWaiverModal('lateModal')">Got It</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -285,8 +365,8 @@
           <p>Yes! All our puppies come from local rescue organizations. If you fall in love during class (and many do), we can connect you with the rescue to start the adoption process.</p>
         </details>
         <details class="faq__item">
-          <summary>What's your cancellation policy?</summary>
-          <p>Full refunds are available up to 24 hours before class. Within 24 hours, we offer a credit toward a future session. No-shows are non-refundable.</p>
+          <summary>What's your cancellation/refund policy?</summary>
+          <p>All bookings are final — we do not offer refunds. However, you can reschedule to a different date/time ($7 CAD fee) or transfer your ticket to someone else for free. Store credit is also available. Please arrive 10 minutes early — entry is not permitted more than 10 minutes after class starts.</p>
         </details>
         <details class="faq__item">
           <summary>How many puppies will be there?</summary>
@@ -366,6 +446,8 @@
           <a href="#classes">Book a Class</a>
           <a href="#faq">FAQs</a>
           <a href="#contact">Contact</a>
+          <a href="#" onclick="openPolicyModal('refundModal');return false;">Refund Policy</a>
+          <a href="#" onclick="openPolicyModal('lateModal');return false;">Late/No-Show Policy</a>
         </div>
         <div class="footer__social">
           <a href="#" aria-label="Instagram">IG</a>

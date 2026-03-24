@@ -902,6 +902,61 @@ ul { list-style: none; }
 }
 .modal__details strong { color: var(--brown); }
 
+/* Policy Modals */
+.modal__content--policy {
+  max-width: 540px;
+  text-align: left;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+.modal__content--policy h3 {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+.policy-modal__body {
+  overflow-y: auto;
+  margin-bottom: 1.5rem;
+  padding-right: 0.5rem;
+}
+.policy-modal__body p {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--brown-light);
+  line-height: 1.7;
+  text-align: left;
+}
+.policy-modal__body p strong {
+  color: var(--brown);
+  display: inline;
+}
+.policy-modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: var(--brown-light);
+  cursor: pointer;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+.policy-modal__close:hover {
+  color: var(--terracotta);
+  background: rgba(212, 114, 78, 0.08);
+}
+.modal__content--policy .btn {
+  align-self: center;
+  min-width: 160px;
+}
+
 /* FAQ */
 .faq {
   padding: var(--section-pad) 0;

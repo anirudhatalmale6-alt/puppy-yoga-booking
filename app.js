@@ -287,6 +287,33 @@ document.querySelector('.contact__form')?.addEventListener('submit', function(e)
   this.reset();
 });
 
+// ---- POLICY MODALS ----
+function openPolicyModal(id) {
+  document.getElementById(id).style.display = 'flex';
+}
+
+function closeWaiverModal(id) {
+  document.getElementById(id).style.display = 'none';
+}
+
+document.getElementById('openWaiverLink')?.addEventListener('click', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  openPolicyModal('waiverModal');
+});
+
+document.getElementById('openRefundLink')?.addEventListener('click', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  openPolicyModal('refundModal');
+});
+
+document.getElementById('openLateLink')?.addEventListener('click', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  openPolicyModal('lateModal');
+});
+
 // ---- EMAIL CAPTURE POPUP ----
 const emailPopup = document.getElementById('emailPopup');
 const emailPopupClose = document.getElementById('emailPopupClose');
