@@ -190,6 +190,21 @@
         <div class="booking-form__inner">
           <div class="booking-form__summary" id="bookingSummary"></div>
           <form id="checkoutForm">
+
+            <!-- Quantity / Number of Participants -->
+            <div class="quantity-selector">
+              <label>Number of Participants</label>
+              <div class="quantity-selector__controls">
+                <button type="button" class="quantity-btn" id="qtyMinus" aria-label="Decrease">-</button>
+                <span class="quantity-value" id="qtyValue">1</span>
+                <button type="button" class="quantity-btn" id="qtyPlus" aria-label="Increase">+</button>
+              </div>
+              <p class="quantity-selector__note">
+                <span id="qtyAvailable"></span>
+                <span class="quantity-selector__total">Total: <strong id="qtyTotal"></strong></span>
+              </p>
+            </div>
+
             <div class="form-row">
               <div class="form-group">
                 <label for="fname">First Name *</label>
@@ -208,10 +223,31 @@
               <label for="phone">Phone *</label>
               <input type="tel" id="phone" required placeholder="(555) 123-4567">
             </div>
+
+            <!-- Embedded Waiver -->
+            <div class="embedded-waiver">
+              <div class="embedded-waiver__header" id="waiverToggle">
+                <h4>Liability Waiver &amp; Photo/Video Release</h4>
+                <span class="embedded-waiver__arrow">&#9660;</span>
+              </div>
+              <div class="embedded-waiver__body" id="waiverBody" style="display:none;">
+                <p><strong>1. Assumption of Risk &amp; Indemnification</strong><br>
+                By participating in any Puppy Flow Yoga event, I acknowledge the inherent risks involved, particularly from live animals (dogs) being on-site. I agree to waive and release any and all claims against Puppy Flow Yoga, its facilities, employees, and affiliates.</p>
+                <p><strong>2. Safety Risks with Live Animals</strong><br>
+                I understand that puppy yoga involves safety risks, as live animals (dogs) are on-site. Participants may experience injury including scratching and biting, even with trained and supervised animals.</p>
+                <p><strong>3. Photo/Video Release</strong><br>
+                I consent to the use of photographs and videos taken during the event for promotional purposes.</p>
+                <p><strong>4. Personal Belongings</strong><br>
+                Puppy Flow Yoga assumes no responsibility for lost, damaged, or stolen personal property.</p>
+                <p><strong>5. Age Requirement</strong><br>
+                All participants must be 18+ or have parental/guardian consent.</p>
+              </div>
+            </div>
+
             <label class="checkbox">
               <input type="checkbox" id="waiver" required>
               <span class="checkbox__mark"></span>
-              <span>I accept the <a href="#" class="link" id="openWaiverLink">liability waiver</a>, <a href="#" class="link" id="openRefundLink">refund policy</a> &amp; <a href="#" class="link" id="openLateLink">late/no-show policy</a>, and understand that I participate at my own risk. *</span>
+              <span>I have read and accept the <a href="#" class="link" id="openWaiverLink">liability waiver</a>, <a href="#" class="link" id="openRefundLink">refund policy</a> &amp; <a href="#" class="link" id="openLateLink">late/no-show policy</a>, and understand that I participate at my own risk. *</span>
             </label>
 
             <!-- Payment Options -->

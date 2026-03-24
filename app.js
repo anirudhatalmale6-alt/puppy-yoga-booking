@@ -192,11 +192,66 @@ function renderSlots() {
   slotsEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
+// ---- QUANTITY SELECTOR ----
+let quantity = 1;
+const qtyValue = document.getElementById('qtyValue');
+const qtyMinus = document.getElementById('qtyMinus');
+const qtyPlus = document.getElementById('qtyPlus');
+const qtyTotal = document.getElementById('qtyTotal');
+const qtyAvailable = document.getElementById('qtyAvailable');
+
+function updateQuantityUI() {
+  qtyValue.textContent = quantity;
+  const total = (CLASS_PRICE * quantity).toFixed(2);
+  qtyTotal.textContent = `$${total}`;
+  document.getElementById('btnPrice').textContent = `$${total}`;
+
+  // Update minus button state
+  qtyMinus.disabled = quantity <= 1;
+
+  // Update plus button state (can't exceed available spots)
+  const maxSpots = selectedSlot ? selectedSlot.spotsLeft : CLASS_CAPACITY;
+  qtyPlus.disabled = quantity >= maxSpots;
+
+  qtyAvailable.textContent = `${maxSpots - quantity} more spots available`;
+}
+
+qtyMinus.addEventListener('click', () => {
+  if (quantity > 1) {
+    quantity--;
+    updateQuantityUI();
+  }
+});
+
+qtyPlus.addEventListener('click', () => {
+  const maxSpots = selectedSlot ? selectedSlot.spotsLeft : CLASS_CAPACITY;
+  if (quantity < maxSpots) {
+    quantity++;
+    updateQuantityUI();
+  }
+});
+
+// ---- EMBEDDED WAIVER TOGGLE ----
+document.getElementById('waiverToggle')?.addEventListener('click', function() {
+  const body = document.getElementById('waiverBody');
+  const waiver = this.closest('.embedded-waiver');
+  if (body.style.display === 'none') {
+    body.style.display = 'block';
+    waiver.classList.add('open');
+  } else {
+    body.style.display = 'none';
+    waiver.classList.remove('open');
+  }
+});
+
 // ---- BOOKING FORM ----
 function showBookingForm() {
   const form = document.getElementById('bookingForm');
   const summary = document.getElementById('bookingSummary');
   const btnPrice = document.getElementById('btnPrice');
+
+  // Reset quantity when new slot selected
+  quantity = 1;
 
   const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -209,11 +264,11 @@ function showBookingForm() {
       ${dateStr} at ${selectedSlot.time}
     </div>
     <div style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--terracotta);">
-      $${CLASS_PRICE}
+      $${CLASS_PRICE} / person
     </div>
   `;
 
-  btnPrice.textContent = `$${CLASS_PRICE}`;
+  updateQuantityUI();
   form.style.display = 'block';
   form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
@@ -254,13 +309,16 @@ function showSuccessModal() {
   const modal = document.getElementById('successModal');
   const details = document.getElementById('modalDetails');
 
+  const totalAmount = (CLASS_PRICE * quantity).toFixed(2);
+
   details.innerHTML = `
     <div><span>Class</span> <strong>Puppy Yoga</strong></div>
     <div><span>Date</span> <strong>${dateStr}</strong></div>
     <div><span>Time</span> <strong>${selectedSlot.time}</strong></div>
+    <div><span>Participants</span> <strong>${quantity}</strong></div>
     <div><span>Name</span> <strong>${fname}</strong></div>
     <div><span>Confirmation</span> <strong>#PY${Math.random().toString(36).substr(2, 6).toUpperCase()}</strong></div>
-    <div><span>Amount</span> <strong>$${CLASS_PRICE}</strong></div>
+    <div><span>Amount</span> <strong>$${totalAmount}${quantity > 1 ? ` ($${CLASS_PRICE} x ${quantity})` : ''}</strong></div>
   `;
 
   modal.style.display = 'flex';
