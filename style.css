@@ -1199,6 +1199,11 @@ ul { list-style: none; }
   color: var(--brown-light);
   font-size: 0.95rem;
   line-height: 1.7;
+  animation: faqOpen 0.3s ease;
+}
+@keyframes faqOpen {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* CONTACT */
@@ -1291,6 +1296,12 @@ ul { list-style: none; }
 .btn--directions:hover {
   background: var(--brown);
 }
+.contact__map-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
 .contact__map-embed {
   border-radius: var(--r-lg);
   overflow: hidden;
@@ -1298,6 +1309,28 @@ ul { list-style: none; }
 }
 .contact__map-embed iframe {
   display: block;
+}
+.contact__parking-img {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+.contact__parking-img h4 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  color: var(--brown);
+  margin-bottom: 0.3rem;
+}
+.contact__parking-img p {
+  color: var(--charcoal);
+  opacity: 0.8;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+.contact__parking-img img {
+  width: 100%;
+  border-radius: var(--r-md);
 }
 
 /* FOOTER */
@@ -1525,6 +1558,7 @@ ul { list-style: none; }
 @media (max-width: 900px) {
   .about__grid,
   .contact__grid { grid-template-columns: 1fr; gap: 2rem; }
+  .contact__map-grid { grid-template-columns: 1fr; }
   .about__images { height: 350px; }
   .how__steps { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
 }
