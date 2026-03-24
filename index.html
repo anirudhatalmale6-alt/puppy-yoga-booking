@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paws & Flow — Puppy Yoga Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">
+        <span class="nav__logo-paw">🐾</span>
+        <span class="nav__logo-text">Paws & Flow</span>
+      </a>
+      <button class="nav__toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav__links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#classes">Classes</a></li>
+        <li><a href="#faq">FAQs</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#classes" class="btn btn--nav">Book Now</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero__bg">
+      <div class="hero__grain"></div>
+      <div class="hero__blob hero__blob--1"></div>
+      <div class="hero__blob hero__blob--2"></div>
+      <div class="hero__blob hero__blob--3"></div>
+    </div>
+    <div class="hero__content">
+      <p class="hero__tag" data-anim="fade-up" data-delay="0">Yoga with a twist of puppy love</p>
+      <h1 class="hero__title" data-anim="fade-up" data-delay="1">
+        Stretch. Breathe.<br>
+        <em>Snuggle.</em>
+      </h1>
+      <p class="hero__sub" data-anim="fade-up" data-delay="2">
+        Join our weekend puppy yoga classes — downward dog has never been this adorable.
+        No experience needed, just an open heart.
+      </p>
+      <div class="hero__actions" data-anim="fade-up" data-delay="3">
+        <a href="#classes" class="btn btn--primary btn--lg">View Classes & Book</a>
+        <a href="#about" class="btn btn--ghost btn--lg">Learn More</a>
+      </div>
+      <div class="hero__stats" data-anim="fade-up" data-delay="4">
+        <div class="hero__stat">
+          <span class="hero__stat-num">500+</span>
+          <span class="hero__stat-label">Happy yogis</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">50+</span>
+          <span class="hero__stat-label">Puppies cuddled</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-num">100%</span>
+          <span class="hero__stat-label">Tail wags</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero__scroll">
+      <span>Scroll to explore</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about__grid">
+        <div class="about__images">
+          <div class="about__img about__img--1" data-anim="fade-right">
+            <div class="about__img-placeholder">
+              <span>🐶</span>
+              <p>Your studio photo here</p>
+            </div>
+          </div>
+          <div class="about__img about__img--2" data-anim="fade-right" data-delay="1">
+            <div class="about__img-placeholder">
+              <span>🧘</span>
+              <p>Class in action</p>
+            </div>
+          </div>
+        </div>
+        <div class="about__text" data-anim="fade-left">
+          <span class="section-tag">About Us</span>
+          <h2 class="section-title">Where yoga meets<br><em>puppy therapy</em></h2>
+          <p>Welcome to Paws & Flow — a one-of-a-kind yoga experience that combines the calming benefits of yoga with the pure joy of playing with adorable puppies.</p>
+          <p>Our classes are designed for all levels. Whether you're a seasoned yogi or stepping on a mat for the first time, our certified instructors will guide you through a gentle flow while rescue puppies roam freely, offering cuddles, kisses, and the occasional playful interruption.</p>
+          <p>Every puppy at our studio is from a local rescue. Many have found their forever homes through our classes — so you might just leave with more than inner peace.</p>
+          <div class="about__highlights">
+            <div class="about__highlight">
+              <div class="about__highlight-icon">🐾</div>
+              <div>
+                <strong>Rescue puppies</strong>
+                <span>All our pups are from local shelters</span>
+              </div>
+            </div>
+            <div class="about__highlight">
+              <div class="about__highlight-icon">🧘</div>
+              <div>
+                <strong>All levels welcome</strong>
+                <span>No yoga experience required</span>
+              </div>
+            </div>
+            <div class="about__highlight">
+              <div class="about__highlight-icon">📸</div>
+              <div>
+                <strong>Photo-ready moments</strong>
+                <span>Capture memories with your furry friend</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <div class="container">
+      <div class="how__header" data-anim="fade-up">
+        <span class="section-tag">How It Works</span>
+        <h2 class="section-title">Three simple steps to <em>puppy bliss</em></h2>
+      </div>
+      <div class="how__steps">
+        <div class="how__step" data-anim="fade-up" data-delay="0">
+          <div class="how__step-num">01</div>
+          <h3>Pick a Class</h3>
+          <p>Browse our weekend schedule and find a session that works for you. Each class is 60 minutes.</p>
+        </div>
+        <div class="how__step" data-anim="fade-up" data-delay="1">
+          <div class="how__step-num">02</div>
+          <h3>Book & Pay</h3>
+          <p>Enter your details, accept the waiver, and pay securely with your card. No account needed.</p>
+        </div>
+        <div class="how__step" data-anim="fade-up" data-delay="2">
+          <div class="how__step-num">03</div>
+          <h3>Show Up & Snuggle</h3>
+          <p>Arrive 10 minutes early, roll out your mat, and let the puppies do the rest.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLASSES / BOOKING -->
+  <section class="classes" id="classes">
+    <div class="container">
+      <div class="classes__header" data-anim="fade-up">
+        <span class="section-tag">Book a Class</span>
+        <h2 class="section-title">Upcoming <em>sessions</em></h2>
+        <p class="classes__sub">Select a date to see available time slots. Spots fill up fast!</p>
+      </div>
+
+      <!-- Calendar -->
+      <div class="calendar" data-anim="fade-up">
+        <div class="calendar__nav">
+          <button class="calendar__arrow" id="calPrev" aria-label="Previous month">&larr;</button>
+          <h3 class="calendar__month" id="calMonth"></h3>
+          <button class="calendar__arrow" id="calNext" aria-label="Next month">&rarr;</button>
+        </div>
+        <div class="calendar__weekdays">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+        <div class="calendar__grid" id="calGrid"></div>
+      </div>
+
+      <!-- Time Slots -->
+      <div class="slots" id="slots" style="display:none;">
+        <h3 class="slots__title" id="slotsTitle"></h3>
+        <div class="slots__grid" id="slotsGrid"></div>
+      </div>
+
+      <!-- Booking Form (shown after selecting a slot) -->
+      <div class="booking-form" id="bookingForm" style="display:none;">
+        <div class="booking-form__inner">
+          <div class="booking-form__summary" id="bookingSummary"></div>
+          <form id="checkoutForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First Name *</label>
+                <input type="text" id="fname" required placeholder="Jane">
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name *</label>
+                <input type="text" id="lname" required placeholder="Doe">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" required placeholder="jane@example.com">
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone *</label>
+              <input type="tel" id="phone" required placeholder="(555) 123-4567">
+            </div>
+            <label class="checkbox">
+              <input type="checkbox" id="waiver" required>
+              <span class="checkbox__mark"></span>
+              <span>I accept the <a href="#" class="link">liability waiver</a> and understand that I participate at my own risk. *</span>
+            </label>
+
+            <!-- Simulated Card Input -->
+            <div class="card-input">
+              <label>Card Details</label>
+              <div class="card-input__box">
+                <div class="card-input__row">
+                  <input type="text" placeholder="4242 4242 4242 4242" class="card-input__number" maxlength="19">
+                  <input type="text" placeholder="MM/YY" class="card-input__exp" maxlength="5">
+                  <input type="text" placeholder="CVC" class="card-input__cvc" maxlength="4">
+                </div>
+                <div class="card-input__icons">
+                  <span class="card-icon">VISA</span>
+                  <span class="card-icon">MC</span>
+                  <span class="card-icon">AMEX</span>
+                </div>
+              </div>
+              <p class="card-input__note">Demo only — real Stripe integration will be connected</p>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--full">
+              <span class="btn__text">Pay & Confirm Booking</span>
+              <span class="btn__price" id="btnPrice">$35</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Success Modal -->
+      <div class="modal" id="successModal" style="display:none;">
+        <div class="modal__overlay"></div>
+        <div class="modal__content">
+          <div class="modal__icon">🎉</div>
+          <h3>You're booked!</h3>
+          <p>A confirmation email with calendar invite has been sent. We can't wait to see you on the mat — and neither can the puppies!</p>
+          <div class="modal__details" id="modalDetails"></div>
+          <button class="btn btn--primary" onclick="closeModal()">Back to Classes</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" id="faq">
+    <div class="container">
+      <div class="faq__header" data-anim="fade-up">
+        <span class="section-tag">FAQs</span>
+        <h2 class="section-title">Got <em>questions?</em></h2>
+      </div>
+      <div class="faq__list" data-anim="fade-up">
+        <details class="faq__item">
+          <summary>Do I need yoga experience?</summary>
+          <p>Not at all! Our classes are beginner-friendly. The instructor guides you through gentle poses at a relaxed pace. The puppies don't judge your form — we promise.</p>
+        </details>
+        <details class="faq__item">
+          <summary>What should I bring?</summary>
+          <p>Just yourself and a smile! We provide yoga mats and all equipment. Wear comfortable clothes you don't mind getting a little puppy fur on.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Are the puppies available for adoption?</summary>
+          <p>Yes! All our puppies come from local rescue organizations. If you fall in love during class (and many do), we can connect you with the rescue to start the adoption process.</p>
+        </details>
+        <details class="faq__item">
+          <summary>What's your cancellation policy?</summary>
+          <p>Full refunds are available up to 24 hours before class. Within 24 hours, we offer a credit toward a future session. No-shows are non-refundable.</p>
+        </details>
+        <details class="faq__item">
+          <summary>How many puppies will be there?</summary>
+          <p>We typically have 6-8 puppies per session, ensuring everyone gets plenty of puppy time! The breed and age may vary each week.</p>
+        </details>
+        <details class="faq__item">
+          <summary>What if I'm allergic?</summary>
+          <p>We love that you're still interested! Unfortunately, with puppies roaming freely, we can't guarantee an allergen-free environment. Please consult your doctor before booking.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Can I take photos during class?</summary>
+          <p>Absolutely! We encourage it. There will be a dedicated photo break during class so you can capture those adorable moments. Just keep phones on silent during the flow portions.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact__grid">
+        <div class="contact__info" data-anim="fade-right">
+          <span class="section-tag">Get in Touch</span>
+          <h2 class="section-title">We'd love to<br><em>hear from you</em></h2>
+          <p>Have a question that's not in our FAQs? Want to host a private puppy yoga event? Drop us a line!</p>
+          <div class="contact__details">
+            <div class="contact__detail">
+              <strong>Location</strong>
+              <span>Your Studio Address Here</span>
+            </div>
+            <div class="contact__detail">
+              <strong>Email</strong>
+              <span>hello@pawsandflow.com</span>
+            </div>
+            <div class="contact__detail">
+              <strong>Classes</strong>
+              <span>Every Saturday & Sunday</span>
+            </div>
+          </div>
+        </div>
+        <form class="contact__form" data-anim="fade-left">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="cName">Name</label>
+              <input type="text" id="cName" placeholder="Your name">
+            </div>
+            <div class="form-group">
+              <label for="cEmail">Email</label>
+              <input type="email" id="cEmail" placeholder="your@email.com">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cSubject">Subject</label>
+            <input type="text" id="cSubject" placeholder="What's this about?">
+          </div>
+          <div class="form-group">
+            <label for="cMsg">Message</label>
+            <textarea id="cMsg" rows="5" placeholder="Tell us more..."></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="nav__logo-paw">🐾</span>
+          <span class="nav__logo-text">Paws & Flow</span>
+          <p>Yoga + puppies = pure joy.</p>
+        </div>
+        <div class="footer__links">
+          <a href="#about">About</a>
+          <a href="#classes">Book a Class</a>
+          <a href="#faq">FAQs</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer__social">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="TikTok">TK</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Paws & Flow. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
