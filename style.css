@@ -1,5 +1,5 @@
 /* ========================================
-   PAWS & FLOW — Puppy Yoga Studio
+   PUPPY FLOW YOGA — Richmond Hill
    Warm organic aesthetic, playful yet refined
    ======================================== */
 
@@ -639,6 +639,11 @@ ul { list-style: none; }
   font-size: 0.85rem;
   color: var(--brown-light);
   margin-top: 0.35rem;
+}
+.slot-card__price-original {
+  text-decoration: line-through;
+  opacity: 0.6;
+  margin-right: 0.3rem;
 }
 
 /* Booking Form */

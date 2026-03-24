@@ -4,9 +4,10 @@
    ======================================== */
 
 // ---- CONFIG ----
-const CLASS_PRICE = 35;
-const CLASS_CAPACITY = 15;
-const CLASS_TIMES = ['9:00 AM', '11:00 AM', '1:00 PM'];
+const CLASS_PRICE_ORIGINAL = 55;
+const CLASS_PRICE = 41.25; // 25% discount
+const CLASS_CAPACITY = 12;
+const CLASS_TIMES = ['12:00 PM', '1:15 PM', '2:30 PM'];
 
 // Classes happen on Saturdays (6) and Sundays (0)
 const CLASS_DAYS = [0, 6]; // 0=Sunday, 6=Saturday
@@ -172,7 +173,7 @@ function renderSlots() {
     card.innerHTML = `
       <div class="slot-card__time">${time}</div>
       <div class="slot-card__spots${spotsClass}">${isFull ? 'FULL' : `${spotsLeft} spots left`}</div>
-      <div class="slot-card__price">$${CLASS_PRICE}</div>
+      <div class="slot-card__price"><span class="slot-card__price-original">$${CLASS_PRICE_ORIGINAL}</span> $${CLASS_PRICE}</div>
     `;
 
     if (!isFull) {
