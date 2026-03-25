@@ -369,14 +369,19 @@ document.getElementById('checkoutForm').addEventListener('submit', async functio
   }
 });
 
-function showSuccessModal(confirmationCode) {
+function showSuccessModal(confirmationCode, bookingInfo) {
   const modal = document.getElementById('successModal');
   const details = document.getElementById('modalDetails');
 
-  details.innerHTML = `
-    <div><span>Confirmation Code</span> <strong>${confirmationCode || ''}</strong></div>
-    <div style="margin-top:10px;"><span>A confirmation email with your booking details has been sent.</span></div>
-  `;
+  let html = `<div><span>Confirmation Code</span> <strong>${confirmationCode || ''}</strong></div>`;
+  if (bookingInfo) {
+    if (bookingInfo.date) html += `<div><span>Date</span> <strong>${bookingInfo.date}</strong></div>`;
+    if (bookingInfo.time) html += `<div><span>Time</span> <strong>${bookingInfo.time}</strong></div>`;
+    if (bookingInfo.qty) html += `<div><span>Participants</span> <strong>${bookingInfo.qty}</strong></div>`;
+    if (bookingInfo.name) html += `<div><span>Name</span> <strong>${bookingInfo.name}</strong></div>`;
+  }
+  html += `<div style="margin-top:10px;"><span>A payment receipt has been sent to your email via Stripe. Please save your confirmation code.</span></div>`;
+  details.innerHTML = html;
 
   modal.style.display = 'flex';
 }
@@ -388,10 +393,16 @@ function showSuccessModal(confirmationCode) {
   const code = params.get('code');
 
   if (bookingStatus === 'success' && code) {
+    const bookingInfo = {
+      date: params.get('date'),
+      time: params.get('time'),
+      qty: params.get('qty'),
+      name: params.get('name'),
+    };
     // Clean URL without reloading
     window.history.replaceState({}, '', window.location.pathname);
     // Show success modal after page loads
-    setTimeout(() => showSuccessModal(code), 500);
+    setTimeout(() => showSuccessModal(code, bookingInfo), 500);
   } else if (bookingStatus === 'cancelled') {
     window.history.replaceState({}, '', window.location.pathname);
     setTimeout(() => {
