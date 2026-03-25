@@ -4,7 +4,7 @@
    ======================================== */
 
 // ---- CONFIG ----
-const API_BASE = 'https://api.puppyflowyoga.com:3125';
+const API_BASE = 'https://organizing-trinity-chassis-mhz.trycloudflare.com';
 const CLASS_PRICE_ORIGINAL = 55;
 const CLASS_PRICE = 41.25; // 25% discount
 const CLASS_CAPACITY = 12;
@@ -12,6 +12,20 @@ const CLASS_TIMES = ['12:00 PM', '1:15 PM', '2:30 PM'];
 
 // Classes happen on Saturdays (6) and Sundays (0)
 const CLASS_DAYS = [0, 6]; // 0=Sunday, 6=Saturday
+
+// Special schedule: April 19 only, then every weekend from May 2 onwards
+const SPECIAL_DATES = ['2026-04-19']; // one-off dates before regular schedule starts
+const REGULAR_START = '2026-05-02'; // every weekend from this date onwards
+
+function isClassDate(date) {
+  const dateStr = formatDateISO(date);
+  // Check special one-off dates
+  if (SPECIAL_DATES.includes(dateStr)) return true;
+  // Before regular schedule starts, only special dates
+  if (dateStr < REGULAR_START) return false;
+  // From May 2 onwards, every Saturday and Sunday
+  return CLASS_DAYS.includes(date.getDay());
+}
 
 // Cache for real availability data from API
 const availabilityCache = {};
@@ -127,7 +141,7 @@ function renderCalendar() {
 
     const isPast = date < today;
     const isToday = date.getTime() === today.getTime();
-    const isClassDay = CLASS_DAYS.includes(date.getDay());
+    const isClassDay = isClassDate(date);
 
     if (isPast && !isToday) {
       el.classList.add('past');
@@ -440,8 +454,8 @@ function quickBook() {
   today.setHours(0, 0, 0, 0);
   let nextClassDate = new Date(today);
 
-  for (let i = 0; i < 14; i++) {
-    if (CLASS_DAYS.includes(nextClassDate.getDay()) && nextClassDate >= today) {
+  for (let i = 0; i < 60; i++) {
+    if (isClassDate(nextClassDate) && nextClassDate >= today) {
       break;
     }
     nextClassDate.setDate(nextClassDate.getDate() + 1);
@@ -588,8 +602,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     today.setHours(0, 0, 0, 0);
     let d = new Date(today);
 
-    while (dates.length < count) {
-      if (CLASS_DAYS.includes(d.getDay()) && d >= today) {
+    while (dates.length < count && d.getFullYear() <= today.getFullYear() + 1) {
+      if (isClassDate(d) && d >= today) {
         dates.push(new Date(d));
       }
       d.setDate(d.getDate() + 1);
