@@ -4,7 +4,7 @@
    ======================================== */
 
 // ---- CONFIG ----
-const API_BASE = 'https://api.puppyflowyoga.com';
+const API_BASE = 'https://api.puppyflowyoga.com:3125';
 const CLASS_PRICE_ORIGINAL = 55;
 const CLASS_PRICE = 41.25; // 25% discount
 const CLASS_CAPACITY = 12;
