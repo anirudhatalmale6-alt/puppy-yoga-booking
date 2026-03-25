@@ -4,6 +4,7 @@
    ======================================== */
 
 // ---- CONFIG ----
+const API_BASE = 'https://api.puppyflowyoga.com';
 const CLASS_PRICE_ORIGINAL = 55;
 const CLASS_PRICE = 41.25; // 25% discount
 const CLASS_CAPACITY = 12;
@@ -12,9 +13,30 @@ const CLASS_TIMES = ['12:00 PM', '1:15 PM', '2:30 PM'];
 // Classes happen on Saturdays (6) and Sundays (0)
 const CLASS_DAYS = [0, 6]; // 0=Sunday, 6=Saturday
 
-// Simulated bookings (random spots taken)
-function getRandomSpotsTaken() {
-  return Math.floor(Math.random() * (CLASS_CAPACITY - 2));
+// Cache for real availability data from API
+const availabilityCache = {};
+
+// Fetch real availability from the API
+async function fetchAvailability(dateStr) {
+  if (availabilityCache[dateStr]) return availabilityCache[dateStr];
+  try {
+    const resp = await fetch(`${API_BASE}/api/availability?date=${dateStr}`);
+    if (!resp.ok) return null;
+    const data = await resp.json();
+    availabilityCache[dateStr] = data.slots;
+    return data.slots;
+  } catch (err) {
+    console.error('Failed to fetch availability:', err);
+    return null;
+  }
+}
+
+// Format date as YYYY-MM-DD
+function formatDateISO(date) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
 }
 
 // ---- STATE ----
@@ -154,7 +176,7 @@ calNext.addEventListener('click', () => {
 renderCalendar();
 
 // ---- TIME SLOTS ----
-function renderSlots() {
+async function renderSlots() {
   const slotsEl = document.getElementById('slots');
   const slotsGrid = document.getElementById('slotsGrid');
   const slotsTitle = document.getElementById('slotsTitle');
@@ -163,11 +185,16 @@ function renderSlots() {
   const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
   slotsTitle.textContent = `${dayNames[selectedDate.getDay()]}, ${monthNames[selectedDate.getMonth()]} ${selectedDate.getDate()}`;
+  slotsGrid.innerHTML = '<p style="text-align:center;color:#7a6555;">Loading availability...</p>';
+
+  const dateStr = formatDateISO(selectedDate);
+  const slots = await fetchAvailability(dateStr);
+
   slotsGrid.innerHTML = '';
 
   CLASS_TIMES.forEach(time => {
-    const spotsTaken = getRandomSpotsTaken();
-    const spotsLeft = CLASS_CAPACITY - spotsTaken;
+    const apiSlot = slots ? slots.find(s => s.time === time) : null;
+    const spotsLeft = apiSlot ? apiSlot.spotsLeft : CLASS_CAPACITY;
     const isFull = spotsLeft <= 0;
 
     const card = document.createElement('div');
@@ -278,56 +305,100 @@ function showBookingForm() {
   form.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// ---- APPLE PAY BUTTON ----
-document.getElementById('applePayBtn')?.addEventListener('click', function() {
-  // Validate required fields first
-  const fname = document.getElementById('fname').value;
-  const email = document.getElementById('email').value;
-  const phone = document.getElementById('phone').value;
+// ---- CHECKOUT (Stripe Redirect) ----
+document.getElementById('checkoutForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
   const waiver = document.getElementById('waiver').checked;
 
-  if (!fname || !email || !phone || !waiver) {
-    alert('Please fill in all required fields and accept the waiver before paying.');
+  if (!fname || !lname || !email || !phone) {
+    alert('Please fill in all required fields.');
+    return;
+  }
+  if (!waiver) {
+    alert('Please accept the waiver to continue.');
+    return;
+  }
+  if (!selectedDate || !selectedSlot) {
+    alert('Please select a date and time slot first.');
     return;
   }
 
-  // In production, this triggers the Apple Pay payment sheet via Stripe
-  // For demo, show success
-  showSuccessModal();
+  const submitBtn = this.querySelector('button[type="submit"]');
+  const originalText = submitBtn.innerHTML;
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = '<span class="btn__text">Processing...</span>';
+
+  try {
+    const dateStr = formatDateISO(selectedDate);
+    const resp = await fetch(`${API_BASE}/api/checkout`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        date: dateStr,
+        time: selectedSlot.time,
+        quantity,
+        firstName: fname,
+        lastName: lname,
+        email,
+        phone,
+        waiverAccepted: true,
+      }),
+    });
+
+    const data = await resp.json();
+
+    if (!resp.ok) {
+      alert(data.error || 'Something went wrong. Please try again.');
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalText;
+      return;
+    }
+
+    // Redirect to Stripe Checkout
+    window.location.href = data.sessionUrl;
+  } catch (err) {
+    console.error('Checkout error:', err);
+    alert('Unable to connect to the booking server. Please try again in a moment.');
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalText;
+  }
 });
 
-// ---- CHECKOUT (Card Payment) ----
-document.getElementById('checkoutForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  showSuccessModal();
-});
-
-function showSuccessModal() {
-  const fname = document.getElementById('fname').value;
-  const email = document.getElementById('email').value;
-
-  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const dateStr = `${dayNames[selectedDate.getDay()]}, ${monthNames[selectedDate.getMonth()]} ${selectedDate.getDate()}, ${selectedDate.getFullYear()}`;
-
+function showSuccessModal(confirmationCode) {
   const modal = document.getElementById('successModal');
   const details = document.getElementById('modalDetails');
 
-  const totalAmount = (CLASS_PRICE * quantity).toFixed(2);
-
   details.innerHTML = `
-    <div><span>Class</span> <strong>Puppy Yoga</strong></div>
-    <div><span>Date</span> <strong>${dateStr}</strong></div>
-    <div><span>Time</span> <strong>${selectedSlot.time}</strong></div>
-    <div><span>Participants</span> <strong>${quantity}</strong></div>
-    <div><span>Name</span> <strong>${fname}</strong></div>
-    <div><span>Confirmation</span> <strong>#PY${Math.random().toString(36).substr(2, 6).toUpperCase()}</strong></div>
-    <div><span>Amount</span> <strong>$${totalAmount}${quantity > 1 ? ` ($${CLASS_PRICE} x ${quantity})` : ''}</strong></div>
+    <div><span>Confirmation Code</span> <strong>${confirmationCode || ''}</strong></div>
+    <div style="margin-top:10px;"><span>A confirmation email with your booking details has been sent.</span></div>
   `;
 
   modal.style.display = 'flex';
 }
+
+// Handle return from Stripe Checkout
+(function handleBookingReturn() {
+  const params = new URLSearchParams(window.location.search);
+  const bookingStatus = params.get('booking');
+  const code = params.get('code');
+
+  if (bookingStatus === 'success' && code) {
+    // Clean URL without reloading
+    window.history.replaceState({}, '', window.location.pathname);
+    // Show success modal after page loads
+    setTimeout(() => showSuccessModal(code), 500);
+  } else if (bookingStatus === 'cancelled') {
+    window.history.replaceState({}, '', window.location.pathname);
+    setTimeout(() => {
+      alert('Payment was cancelled. Your spots have not been reserved. You can try booking again.');
+    }, 500);
+  }
+})();
 
 function closeModal() {
   document.getElementById('successModal').style.display = 'none';
@@ -525,14 +596,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     dateSelect.appendChild(opt);
   });
 
-  // Render time pills
-  function renderTimePills() {
-    timeSlotsRow.innerHTML = '';
+  // Render time pills with real availability
+  async function renderTimePills() {
+    timeSlotsRow.innerHTML = '<span style="color:#7a6555;font-size:13px;">Loading...</span>';
     widgetSelectedTime = null;
 
-    CLASS_TIMES.forEach((time, idx) => {
-      const spotsTaken = getRandomSpotsTaken();
-      const spotsLeft = CLASS_CAPACITY - spotsTaken;
+    const dateIdx = dateSelect.value;
+    const date = classDates[dateIdx];
+    const dateStr = formatDateISO(date);
+    const slots = await fetchAvailability(dateStr);
+
+    timeSlotsRow.innerHTML = '';
+
+    CLASS_TIMES.forEach((time) => {
+      const apiSlot = slots ? slots.find(s => s.time === time) : null;
+      const spotsLeft = apiSlot ? apiSlot.spotsLeft : CLASS_CAPACITY;
       const isFull = spotsLeft <= 0;
 
       const pill = document.createElement('button');
