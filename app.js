@@ -641,7 +641,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       const pill = document.createElement('button');
       pill.type = 'button';
       pill.className = 'time-pill' + (isFull ? ' full' : '');
-      pill.textContent = time;
+      const spotsText = isFull ? 'FULL' : `${spotsLeft} spots`;
+      const spotsColor = spotsLeft <= 3 ? '#c0392b' : '#7a6555';
+      pill.innerHTML = `${time}<span style="display:block;font-size:10px;font-weight:600;color:${spotsColor};margin-top:2px;">${spotsText}</span>`;
 
       if (!isFull) {
         pill.addEventListener('click', () => {
