@@ -553,8 +553,11 @@ emailPopup.querySelector('.email-popup__overlay').addEventListener('click', hide
 emailPopupForm.addEventListener('submit', function(e) {
   e.preventDefault();
   const email = document.getElementById('popupEmail').value;
-  // In production, this would POST to your backend/email service
-  console.log('Email captured:', email);
+  fetch(`${API_BASE}/api/subscribe`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
+  }).catch(() => {});
   emailPopupForm.style.display = 'none';
   document.querySelector('.email-popup__text').style.display = 'none';
   emailPopupSuccess.style.display = 'block';
