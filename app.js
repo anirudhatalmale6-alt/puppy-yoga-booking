@@ -518,6 +518,122 @@ document.getElementById('openLateLink')?.addEventListener('click', function(e) {
 
 // ---- EMAIL CAPTURE POPUP ----
 const emailPopup = document.getElementById('emailPopup');
+// ---- PHOTO GALLERY ----
+(function() {
+  const photos = [
+    'IMG_3555.jpeg','IMG_3560.jpeg','IMG_3547.jpeg','IMG_3563.jpeg',
+    'IMG_3568.jpeg','IMG_3574.jpeg','IMG_3573.jpeg','IMG_3564.jpeg',
+    'IMG_3561.jpeg','IMG_3567.jpeg','IMG_3562.jpeg','IMG_3552.jpeg',
+    'IMG_3558.jpeg','IMG_3571.jpeg','IMG_3553.jpeg','IMG_3545.jpeg',
+    'IMG_3548.jpeg','IMG_3554.jpeg','IMG_3556.jpeg','IMG_3543.jpeg',
+    'IMG_3565.jpeg','IMG_3546.jpeg','IMG_3572.jpeg','IMG_3557.jpeg',
+    'IMG_3544.jpeg','IMG_3566.jpeg','IMG_3559.jpeg','IMG_3551.jpeg',
+    'IMG_3570.jpeg'
+  ];
+
+  const track = document.getElementById('galleryTrack');
+  const dots = document.getElementById('galleryDots');
+  const grid = document.getElementById('galleryGrid');
+  const lightbox = document.getElementById('galleryLightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCounter = document.getElementById('lightboxCounter');
+  if (!track) return;
+
+  // Use first 8 for slideshow, all for grid
+  const slidePhotos = photos.slice(0, 8);
+  let currentSlide = 0;
+  let slideInterval;
+
+  // Build slideshow
+  slidePhotos.forEach((p, i) => {
+    const img = document.createElement('img');
+    img.src = 'photos/' + p;
+    img.alt = 'Puppy yoga session ' + (i + 1);
+    img.loading = i < 2 ? 'eager' : 'lazy';
+    track.appendChild(img);
+  });
+
+  // Build dots
+  slidePhotos.forEach((_, i) => {
+    const dot = document.createElement('span');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => goToSlide(i));
+    dots.appendChild(dot);
+  });
+
+  function goToSlide(n) {
+    currentSlide = ((n % slidePhotos.length) + slidePhotos.length) % slidePhotos.length;
+    track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+    dots.querySelectorAll('span').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+  }
+
+  document.getElementById('galleryPrev').addEventListener('click', () => { goToSlide(currentSlide - 1); resetAutoplay(); });
+  document.getElementById('galleryNext').addEventListener('click', () => { goToSlide(currentSlide + 1); resetAutoplay(); });
+
+  function resetAutoplay() {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(() => goToSlide(currentSlide + 1), 4000);
+  }
+  slideInterval = setInterval(() => goToSlide(currentSlide + 1), 4000);
+
+  // Build thumbnail grid
+  photos.forEach((p, i) => {
+    const img = document.createElement('img');
+    img.src = 'photos/' + p;
+    img.alt = 'Puppy yoga photo ' + (i + 1);
+    img.loading = 'lazy';
+    img.addEventListener('click', () => openLightbox(i));
+    grid.appendChild(img);
+  });
+
+  // Lightbox
+  let lbIndex = 0;
+  function openLightbox(i) {
+    lbIndex = i;
+    lightboxImg.src = 'photos/' + photos[i];
+    lightboxCounter.textContent = (i + 1) + ' / ' + photos.length;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.getElementById('lightboxPrev').addEventListener('click', (e) => {
+    e.stopPropagation();
+    lbIndex = (lbIndex - 1 + photos.length) % photos.length;
+    lightboxImg.src = 'photos/' + photos[lbIndex];
+    lightboxCounter.textContent = (lbIndex + 1) + ' / ' + photos.length;
+  });
+  document.getElementById('lightboxNext').addEventListener('click', (e) => {
+    e.stopPropagation();
+    lbIndex = (lbIndex + 1) % photos.length;
+    lightboxImg.src = 'photos/' + photos[lbIndex];
+    lightboxCounter.textContent = (lbIndex + 1) + ' / ' + photos.length;
+  });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') document.getElementById('lightboxPrev').click();
+    if (e.key === 'ArrowRight') document.getElementById('lightboxNext').click();
+  });
+
+  // Touch swipe for slideshow
+  let touchStartX = 0;
+  const slider = document.getElementById('gallerySlider');
+  slider.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  slider.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) goToSlide(currentSlide + 1);
+      else goToSlide(currentSlide - 1);
+      resetAutoplay();
+    }
+  });
+})();
+
 const emailPopupClose = document.getElementById('emailPopupClose');
 const emailPopupForm = document.getElementById('emailPopupForm');
 const emailPopupSuccess = document.getElementById('emailPopupSuccess');

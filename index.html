@@ -22,6 +22,7 @@
       </button>
       <ul class="nav__links" id="navLinks">
         <li><a href="#about">About</a></li>
+        <li><a href="#gallery">Gallery</a></li>
         <li><a href="#classes">Classes</a></li>
         <li><a href="#faq">FAQs</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -153,6 +154,39 @@
           <p>Arrive 10 minutes early, roll out your mat, and let the puppies do the rest.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="container">
+      <div class="gallery__header" data-anim="fade-up">
+        <span class="section-tag">Our Sessions</span>
+        <h2 class="section-title">Paws in <em>action</em></h2>
+        <p class="section-sub">Real moments from our puppy yoga classes</p>
+      </div>
+
+      <!-- Slideshow -->
+      <div class="gallery__slideshow" data-anim="fade-up">
+        <div class="gallery__slider" id="gallerySlider">
+          <div class="gallery__track" id="galleryTrack"></div>
+        </div>
+        <button class="gallery__arrow gallery__arrow--left" id="galleryPrev" aria-label="Previous">&#8249;</button>
+        <button class="gallery__arrow gallery__arrow--right" id="galleryNext" aria-label="Next">&#8250;</button>
+        <div class="gallery__dots" id="galleryDots"></div>
+      </div>
+
+      <!-- Thumbnail Grid -->
+      <div class="gallery__grid" id="galleryGrid" data-anim="fade-up"></div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="gallery__lightbox" id="galleryLightbox">
+      <button class="gallery__lightbox-close" id="lightboxClose">&times;</button>
+      <button class="gallery__lightbox-arrow gallery__lightbox-arrow--left" id="lightboxPrev">&#8249;</button>
+      <button class="gallery__lightbox-arrow gallery__lightbox-arrow--right" id="lightboxNext">&#8250;</button>
+      <img class="gallery__lightbox-img" id="lightboxImg" src="" alt="Gallery photo">
+      <div class="gallery__lightbox-counter" id="lightboxCounter"></div>
     </div>
   </section>
 
