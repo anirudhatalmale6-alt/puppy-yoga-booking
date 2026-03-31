@@ -22,7 +22,6 @@
       </button>
       <ul class="nav__links" id="navLinks">
         <li><a href="#about">About</a></li>
-        <li><a href="#gallery">Gallery</a></li>
         <li><a href="#classes">Classes</a></li>
         <li><a href="#faq">FAQs</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -78,22 +77,14 @@
   <section class="about" id="about">
     <div class="container">
       <div class="about__grid">
-        <div class="about__images">
-          <!-- TO ADD YOUR OWN IMAGES: Replace the placeholder div below with an <img> tag.
-               Example: <img src="images/studio.jpg" alt="Puppy Flow Yoga studio"> -->
-          <div class="about__img about__img--1" data-anim="fade-right">
-            <div class="about__img-placeholder">
-              <span>🐶</span>
-              <p>Your studio photo here</p>
+        <div class="about__images" data-anim="fade-right">
+          <div class="about__slideshow">
+            <div class="about__slider" id="aboutSlider">
+              <div class="about__track" id="aboutTrack"></div>
             </div>
-          </div>
-          <!-- TO ADD YOUR OWN IMAGES: Replace the placeholder div below with an <img> tag.
-               Example: <img src="images/class-action.jpg" alt="Puppy yoga class in action"> -->
-          <div class="about__img about__img--2" data-anim="fade-right" data-delay="1">
-            <div class="about__img-placeholder">
-              <span>🧘</span>
-              <p>Class in action</p>
-            </div>
+            <button class="about__arrow about__arrow--left" id="aboutPrev" aria-label="Previous">&#8249;</button>
+            <button class="about__arrow about__arrow--right" id="aboutNext" aria-label="Next">&#8250;</button>
+            <div class="about__dots" id="aboutDots"></div>
           </div>
         </div>
         <div class="about__text" data-anim="fade-left">
@@ -154,39 +145,6 @@
           <p>Arrive 10 minutes early, roll out your mat, and let the puppies do the rest.</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- GALLERY -->
-  <section class="gallery" id="gallery">
-    <div class="container">
-      <div class="gallery__header" data-anim="fade-up">
-        <span class="section-tag">Our Sessions</span>
-        <h2 class="section-title">Paws in <em>action</em></h2>
-        <p class="section-sub">Real moments from our puppy yoga classes</p>
-      </div>
-
-      <!-- Slideshow -->
-      <div class="gallery__slideshow" data-anim="fade-up">
-        <div class="gallery__slider" id="gallerySlider">
-          <div class="gallery__track" id="galleryTrack"></div>
-        </div>
-        <button class="gallery__arrow gallery__arrow--left" id="galleryPrev" aria-label="Previous">&#8249;</button>
-        <button class="gallery__arrow gallery__arrow--right" id="galleryNext" aria-label="Next">&#8250;</button>
-        <div class="gallery__dots" id="galleryDots"></div>
-      </div>
-
-      <!-- Thumbnail Grid -->
-      <div class="gallery__grid" id="galleryGrid" data-anim="fade-up"></div>
-    </div>
-
-    <!-- Lightbox -->
-    <div class="gallery__lightbox" id="galleryLightbox">
-      <button class="gallery__lightbox-close" id="lightboxClose">&times;</button>
-      <button class="gallery__lightbox-arrow gallery__lightbox-arrow--left" id="lightboxPrev">&#8249;</button>
-      <button class="gallery__lightbox-arrow gallery__lightbox-arrow--right" id="lightboxNext">&#8250;</button>
-      <img class="gallery__lightbox-img" id="lightboxImg" src="" alt="Gallery photo">
-      <div class="gallery__lightbox-counter" id="lightboxCounter"></div>
     </div>
   </section>
 

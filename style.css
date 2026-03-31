@@ -356,39 +356,67 @@ ul { list-style: none; }
 }
 .about__images {
   position: relative;
-  height: 500px;
 }
-.about__img {
-  position: absolute;
+.about__slideshow {
+  position: relative;
   border-radius: var(--r-lg);
   overflow: hidden;
   box-shadow: var(--shadow-lg);
 }
-.about__img--1 {
-  width: 65%;
-  height: 70%;
-  top: 0; left: 0;
-}
-.about__img--2 {
-  width: 55%;
-  height: 55%;
-  bottom: 0; right: 0;
-  border: 4px solid var(--cream);
-}
-.about__img-placeholder {
-  width: 100%;
-  height: 100%;
-  min-height: 200px;
-  background: linear-gradient(135deg, var(--peach) 0%, var(--sage) 100%);
+.about__slider { overflow: hidden; border-radius: var(--r-lg); }
+.about__track {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  color: var(--brown);
+  transition: transform .5s ease;
 }
-.about__img-placeholder span { font-size: 3rem; }
-.about__img-placeholder p { font-size: 0.85rem; opacity: 0.7; }
+.about__track img {
+  min-width: 100%;
+  max-width: 100%;
+  height: 480px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+.about__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,.85);
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 22px;
+  color: #5c4033;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  transition: background .2s;
+}
+.about__arrow:hover { background: #fff; }
+.about__arrow--left { left: 10px; }
+.about__arrow--right { right: 10px; }
+.about__dots {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  padding: 12px 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,.25);
+}
+.about__dots span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.5);
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+}
+.about__dots span.active {
+  background: #fff;
+  transform: scale(1.2);
+}
 
 .about__text p {
   color: var(--brown-light);
@@ -1895,7 +1923,8 @@ ul { list-style: none; }
   .about__grid,
   .contact__grid { grid-template-columns: 1fr; gap: 2rem; }
   .contact__map-grid { grid-template-columns: 1fr; }
-  .about__images { height: 350px; }
+  .about__track img { height: 280px; }
+  .about__arrow { width: 34px; height: 34px; font-size: 18px; }
   .how__steps { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
 }
 
