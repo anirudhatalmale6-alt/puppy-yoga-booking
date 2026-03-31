@@ -1754,6 +1754,36 @@ ul { list-style: none; }
   .gallery__arrow { width: 36px; height: 36px; font-size: 20px; }
 }
 
+/* ---- PHOTO STRIP (above footer) ---- */
+.photo-strip {
+  overflow: hidden;
+  background: #5c4033;
+  padding: 6px 0;
+}
+.photo-strip__track {
+  display: flex;
+  gap: 6px;
+  animation: photoScroll 60s linear infinite;
+  width: max-content;
+}
+.photo-strip__track img {
+  height: 180px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+  opacity: .9;
+  transition: opacity .2s;
+}
+.photo-strip__track img:hover { opacity: 1; }
+@keyframes photoScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (max-width: 768px) {
+  .photo-strip__track img { height: 120px; }
+}
+
 /* ---- EMAIL CAPTURE POPUP ---- */
 .email-popup {
   position: fixed;

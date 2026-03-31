@@ -518,9 +518,9 @@ document.getElementById('openLateLink')?.addEventListener('click', function(e) {
 
 // ---- EMAIL CAPTURE POPUP ----
 const emailPopup = document.getElementById('emailPopup');
-// ---- ABOUT PHOTO SLIDESHOW ----
+// ---- ABOUT PHOTO SLIDESHOW (6 best photos) ----
 (function() {
-  const photos = [
+  const allPhotos = [
     'IMG_3555.jpeg','IMG_3560.jpeg','IMG_3547.jpeg','IMG_3563.jpeg',
     'IMG_3568.jpeg','IMG_3574.jpeg','IMG_3573.jpeg','IMG_3564.jpeg',
     'IMG_3561.jpeg','IMG_3567.jpeg','IMG_3562.jpeg','IMG_3552.jpeg',
@@ -531,57 +531,74 @@ const emailPopup = document.getElementById('emailPopup');
     'IMG_3570.jpeg'
   ];
 
+  // 6 photos for the About slideshow
+  const slidePhotos = allPhotos.slice(0, 6);
+  // Rest for the bottom photo strip
+  const stripPhotos = allPhotos.slice(6);
+
+  // --- About Slideshow ---
   const track = document.getElementById('aboutTrack');
   const dots = document.getElementById('aboutDots');
-  if (!track) return;
+  if (track) {
+    let currentSlide = 0;
+    let slideInterval;
 
-  let currentSlide = 0;
-  let slideInterval;
+    slidePhotos.forEach((p, i) => {
+      const img = document.createElement('img');
+      img.src = 'photos/' + p;
+      img.alt = 'Puppy yoga session ' + (i + 1);
+      img.loading = i < 2 ? 'eager' : 'lazy';
+      track.appendChild(img);
+    });
 
-  // Build slides
-  photos.forEach((p, i) => {
-    const img = document.createElement('img');
-    img.src = 'photos/' + p;
-    img.alt = 'Puppy yoga session ' + (i + 1);
-    img.loading = i < 2 ? 'eager' : 'lazy';
-    track.appendChild(img);
-  });
+    slidePhotos.forEach((_, i) => {
+      const dot = document.createElement('span');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goToSlide(i));
+      dots.appendChild(dot);
+    });
 
-  // Build dots
-  photos.forEach((_, i) => {
-    const dot = document.createElement('span');
-    if (i === 0) dot.classList.add('active');
-    dot.addEventListener('click', () => goToSlide(i));
-    dots.appendChild(dot);
-  });
-
-  function goToSlide(n) {
-    currentSlide = ((n % photos.length) + photos.length) % photos.length;
-    track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
-    dots.querySelectorAll('span').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-  }
-
-  document.getElementById('aboutPrev').addEventListener('click', () => { goToSlide(currentSlide - 1); resetAutoplay(); });
-  document.getElementById('aboutNext').addEventListener('click', () => { goToSlide(currentSlide + 1); resetAutoplay(); });
-
-  function resetAutoplay() {
-    clearInterval(slideInterval);
-    slideInterval = setInterval(() => goToSlide(currentSlide + 1), 4000);
-  }
-  slideInterval = setInterval(() => goToSlide(currentSlide + 1), 4000);
-
-  // Touch swipe
-  let touchStartX = 0;
-  const slider = document.getElementById('aboutSlider');
-  slider.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
-  slider.addEventListener('touchend', (e) => {
-    const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      if (diff > 0) goToSlide(currentSlide + 1);
-      else goToSlide(currentSlide - 1);
-      resetAutoplay();
+    function goToSlide(n) {
+      currentSlide = ((n % slidePhotos.length) + slidePhotos.length) % slidePhotos.length;
+      track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+      dots.querySelectorAll('span').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
     }
-  });
+
+    document.getElementById('aboutPrev').addEventListener('click', () => { goToSlide(currentSlide - 1); resetAutoplay(); });
+    document.getElementById('aboutNext').addEventListener('click', () => { goToSlide(currentSlide + 1); resetAutoplay(); });
+
+    function resetAutoplay() {
+      clearInterval(slideInterval);
+      slideInterval = setInterval(() => goToSlide(currentSlide + 1), 4000);
+    }
+    slideInterval = setInterval(() => goToSlide(currentSlide + 1), 4000);
+
+    let touchStartX = 0;
+    const slider = document.getElementById('aboutSlider');
+    slider.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', (e) => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) goToSlide(currentSlide + 1);
+        else goToSlide(currentSlide - 1);
+        resetAutoplay();
+      }
+    });
+  }
+
+  // --- Bottom Photo Strip (auto-scrolling) ---
+  const stripTrack = document.getElementById('photoStripTrack');
+  if (stripTrack) {
+    // Duplicate photos for seamless loop
+    const doubled = [...stripPhotos, ...stripPhotos];
+    doubled.forEach((p, i) => {
+      const img = document.createElement('img');
+      img.src = 'photos/' + p;
+      img.alt = 'Puppy yoga';
+      img.loading = 'lazy';
+      stripTrack.appendChild(img);
+    });
+  }
 })();
 
 const emailPopupClose = document.getElementById('emailPopupClose');
